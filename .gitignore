@@ -1,0 +1,13 @@
+LICENSE.txt
+bin/
+cmd/
+dev/
+etc/
+ReleaseNotes.html
+git-bash.exe
+git-cmd.exe
+mingw64/
+unins000.dat
+unins000.exe
+unins000.msg
+usr/

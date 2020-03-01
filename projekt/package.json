@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "api-test": "newman run APItest.postman_collection.json"
+    "api-test": "newman run test/APItest.postman_collection.json"
   },
   "author": "Grzegorz",
 }

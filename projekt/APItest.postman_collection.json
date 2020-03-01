@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "092f1cb4-0cd7-4a70-ad6b-03c1d47e378f",
+		"name": "APItest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getPosts",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9bb865f4-cfa6-4852-9132-90525ff90ec4",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ccbde7d-b1e6-42bc-8038-da11072f71cc",
+						"exec": [
+							"var jsondata = pm.response.json();",
+							"var Id = jsondata.find(c => c.id === 2);",
+							"pm.environment.set(\"userId\", Id.userId);",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{https}}//{{url}}/posts",
+					"host": [
+						"{{https}}"
+					],
+					"path": [
+						"",
+						"{{url}}",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addPost",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f24efc8a-385a-4ae4-9b73-776a78deb44a",
+						"exec": [
+							"var randomTitle = Math.random().toString(36).substr(2, 5);",
+							"pm.environment.set(\"title\", randomTitle);",
+							"//console.log(randomTitle)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4c82bf2-5fd1-49f7-98a8-2c9825a60235",
+						"exec": [
+							"var getId = pm.response.json();",
+							"//set environment id for put request",
+							"pm.environment.set(\"id\", getId.id)",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\": {{userId}},\n\t\"title\": \"{{title}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{https}}//{{url}}/posts",
+					"host": [
+						"{{https}}"
+					],
+					"path": [
+						"",
+						"{{url}}",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modifyPost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d892cbe-1de4-41a1-8474-9d333a23624a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{https}}//{{url}}/posts/{{id}}",
+					"host": [
+						"{{https}}"
+					],
+					"path": [
+						"",
+						"{{url}}",
+						"posts",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3f9f6d53-9eb4-4b20-a2c8-ee9fe4e777b7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f1a309d1-fe2c-4b26-97de-1c1d0364c5e0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
